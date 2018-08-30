@@ -1,8 +1,5 @@
-﻿{{extend ("./parent.html")}}
-{{#block ("body")}}
+﻿{{extend ("./parent.html")}} {{#block ("body")}}
 <!-- 中间占位 -->
-{{extend ("./parent.html")}} {{#block ("body")}}
->>>>>>> 6cc4085b922b19d79bcf01b45cf0d3d5f84008b1
 <div class="panel panel-default">
     <div class="panel-heading">
         <ol class="breadcrumb">
@@ -36,7 +33,7 @@
                 </tr>
             </thead>
             <tbody>
-                {{#each(student)}}
+                {{#each(students)}}
                 <tr>
                     <td>{{this.name}}</td>
                     <td>{{this.age}}</td>
@@ -47,18 +44,6 @@
                         <input type="button" class="btn btn-danger" value="删除">
                     </td>
                 </tr>
-                {{#each(students)}}
-                    <tr>
-                        <td>{{this.name}}</td>
-                        <td>{{this.age}}</td>
-                        <td>{{this.sex}}</td>
-                        <td>{{this.phone}}</td>
-                        <td>
-                            <a href="#" class="btn btn-success">编辑</a> |
-
-                            <input type="button" class="btn btn-danger" value="删除">
-                        </td>
-                    </tr>
                 {{/each}}
             </tbody>
         </table>
