@@ -92,8 +92,16 @@ exports.login = (req, res) => {
     if (doc == null) {
       result.status = 2;
       result.message = "用户名或密码错误";
+    }else{
+       //登录成功(不加这句,会一直重复登录)
+       req.session.loginedName = req.body.username
     }
 
     res.json(result);
   })
 };
+
+exports.logout = (req,res) =>{
+  req.session.loginedName = null;
+  res.send("<script>location.href = '/account/login'</script>")
+}

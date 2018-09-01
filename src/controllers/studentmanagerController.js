@@ -75,3 +75,52 @@ exports.getStudentListPage = (req,res) => {
         });
     })  
 }
+
+exports.getAddStudentListPage = (req,res) =>{
+    xtpl.renderFile(path.join(__dirname,"../statics/views/add.html"),{
+        loginedName:req.session.loginedName
+    },function(error,content){
+        res.send(content)
+    });
+}
+
+exports.addstudent = (req,res) =>{
+    databasetool.insertOne('studentInfo',req.body,(err,docs)=>{
+       if(docs==null){
+           res.send(`<script>console.log(docs);alert('失败')</script>`)
+       }else{
+        res.send(`<script>location.href='/studentmanager/list'</script>`)           
+       }
+    })  
+}
+
+exports.getEditStudent = (req,res) =>{
+    databasetool.findOne('studentInfo',{_id:databasetool.ObjectId(req.params.studentId)},(err,docs)=>{
+        xtpl.renderFile(path.join(__dirname,"../statics/views/edit.html"),{
+            student:docs,
+            loginedName:req.session.loginedName
+        },function(error,content){
+            res.send(content)
+        });
+    })  
+}
+
+exports.editStudent = (req,res) =>{
+    databasetool.updateOne('studentInfo',{_id:databasetool.ObjectId(req.params.studentId)},req.body,(err,docs)=>{
+        if(docs==null){
+            res.send(`<script>console.log(docs);alert('失败')</script>`)
+        }else{
+         res.send(`<script>location.href='/studentmanager/list'</script>`)           
+        }
+    })  
+}
+
+exports.deleteStudent = (req,res) =>{
+    databasetool.deleteOne('studentInfo',{_id:databasetool.ObjectId(req.params.studentId)},(err,docs)=>{
+        if(docs==null){
+            res.send(`<script>console.log(docs);alert('失败')</script>`)
+        }else{
+         res.send(`<script>location.href='/studentmanager/list'</script>`)           
+        }
+    })  
+}
